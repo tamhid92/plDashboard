@@ -29,7 +29,8 @@ from prometheus_client import (
 )
 
 # -------------------- Config --------------------
-DB_HOST = os.getenv("DB_HOST", "localhost")
+API_TOKEN = os.getenv("API_TOKEN", "").strip()
+DB_HOST = os.getenv("DB_HOST", "postgres")
 DB_PORT = int(os.getenv("DB_PORT", "5432"))
 DB_NAME = os.getenv("DB_NAME", "pldashboard")
 DB_USER = os.getenv("DB_USER", "postgres")
@@ -46,13 +47,10 @@ POOL_LOCK = threading.Lock()
 POOL_MIN = int(os.getenv("DB_POOL_MIN", "1"))
 POOL_MAX = int(os.getenv("DB_POOL_MAX", "10"))
 
-CORS_ENABLED = os.getenv("CORS_ENABLED", "true").lower() == "true"
-CORS_ORIGINS = os.getenv("CORS_ORIGINS", "*").split(",") if os.getenv("CORS_ORIGINS", "*") else []
+CORS_ENABLED = os.getenv("CORS_ENABLED", "false").lower() == "true"
+CORS_ORIGINS = os.getenv("CORS_ORIGINS", "").split(",") if os.getenv("CORS_ORIGINS") else []
 
 IDENTIFIER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]{0,63}$")
-
-MAX_LIMIT = int(os.getenv("MAX_PAGE_LIMIT", "1000"))
-DEFAULT_LIMIT = int(os.getenv("DEFAULT_PAGE_LIMIT", "200"))
 
 # Logging
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
@@ -65,6 +63,12 @@ if PROM_MULTI_DIR:
     multiprocess.MultiProcessCollector(registry)
 else:
     registry = CollectorRegistry()
+
+PUBLIC_PATHS = {
+    "/health",
+    "/readyz",
+    "/metrics",
+}
 
 # -------------------- App --------------------
 app = Flask(__name__)
@@ -120,6 +124,9 @@ def _setup_logging():
 
 _setup_logging()
 logger = logging.getLogger(__name__)
+
+def _is_public(path: str) -> bool:
+    return path in PUBLIC_PATHS
 
 def _device_family(ua_str: str) -> str:
     ua = ua_parse(ua_str or "")
@@ -268,6 +275,16 @@ def _endpoint_label():
     return request.path or "unknown"
 
 @app.before_request
+def _api_token_gate():
+    if request.method == "OPTIONS" or _is_public(request.path):
+        return
+
+    token = request.headers.get("X-API-Token") or request.args.get("api_token")
+    if not API_TOKEN or token != API_TOKEN:
+        abort(401, description="Missing or Invalid API token")
+
+
+@app.before_request
 def _start_timer_and_request_id():
     g.start_time = time.time()
     g.request_id = request.headers.get("X-Request-ID") or request.headers.get("X-Cf-Ray") or os.urandom(6).hex()
@@ -330,10 +347,7 @@ def _record_metrics_and_log(resp):
         logger.info(f"{request.method} {request.path} -> {resp.status_code} in {duration:.4f}s")
     finally:
         INFLIGHT.dec()
-    # Safely set request ID - it may not exist if before_request handlers were aborted
-    request_id = getattr(g, "request_id", None)
-    if request_id:
-        resp.headers["X-Request-ID"] = request_id
+    resp.headers["X-Request-ID"] = g.request_id
     try:
         v = getattr(g, "_visit", None)
         if v:

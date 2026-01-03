@@ -1,0 +1,279 @@
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: etl-init
+  labels:
+    app: etl-jobs
+spec:
+  backoffLimit: 2
+  ttlSecondsAfterFinished: 86400
+  template:
+    metadata:
+      labels:
+        app: etl-jobs
+    spec:
+      restartPolicy: Never
+      volumes:
+        - name: tmp
+          emptyDir: {}
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 2Gi
+      initContainers:
+        - name: wait-for-postgres
+          image: postgres:17-alpine
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: DB_HOST
+              value: "postgres"
+            - name: DB_PORT
+              value: "5432"
+          command: ["sh", "-c"]
+          args:
+            - |
+              echo "Waiting for Postgres at ${DB_HOST}:${DB_PORT} ..."
+              until pg_isready -h "${DB_HOST}" -p "${DB_PORT}"; do
+                sleep 3
+              done
+              echo "Postgres is ready."
+      containers:
+        # --- Selenium sidecar ---
+        - name: selenium
+          image: selenium/standalone-chromium:latest
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: "300m"
+              memory: "1Gi"
+            limits:
+              cpu: "1"
+              memory: "2Gi"
+          readinessProbe:
+            httpGet:
+              path: /status
+              port: 4444
+            initialDelaySeconds: 2
+            periodSeconds: 3
+            timeoutSeconds: 2
+            failureThreshold: 20
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+            runAsUser: 1200 
+          volumeMounts:
+            - name: dshm
+              mountPath: /dev/shm
+
+        - name: etl
+          image: ghcr.io/tamhid92/epl-etl:staging
+          imagePullPolicy: Always
+          command: ["/bin/sh","-lc"]
+          args:
+            - |
+              echo "Waiting for Selenium at http://localhost:4444/status ..."
+                  python - <<'PY'
+              import json, sys, time, urllib.request
+              url = "http://localhost:4444/status"
+              for _ in range(120):
+                  try:
+                      with urllib.request.urlopen(url, timeout=2) as r:
+                          data = json.load(r)
+                      ready = (data.get("value") or {}).get("ready")
+                      if ready is None:
+                          ready = data.get("ready")
+                      if ready:
+                          sys.exit(0)
+                  except Exception:
+                      pass
+                  time.sleep(2)
+              sys.exit(1)
+              PY
+                  exec python /app/data_pipeline.py update
+          env:
+            - name: DB_HOST
+              value: "postgres"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: DB_NAME
+            - name: DB_USER
+              value: "postgres"
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_PASSWORD
+            - name: LOG_LEVEL
+              value: "INFO"
+            - name: SQLALCHEMY_ECHO
+              value: "false"
+            - name: SEASON_ID
+              value: "2025/2026"
+            - name: COMP_ID
+              value: "EPL"
+            - name: SLEEP_BETWEEN_MATCHES
+              value: "5"
+            - name: VENUES_CSV_PATH
+              value: "/app/venues.csv"
+            - name: SELENIUM_URL
+              value: "http://localhost:4444"
+            - name: FBREF_WAIT_TIME
+              value: "7"
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "512Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi"
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+            runAsUser: 0
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+---
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etl-weekly
+  labels:
+    app: etl-jobs
+spec:
+  schedule: "0 3 * * 1"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 3
+  successfulJobsHistoryLimit: 1
+  startingDeadlineSeconds: 1800
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      template:
+        metadata:
+          labels:
+            app: etl-jobs
+        spec:
+          restartPolicy: OnFailure
+          volumes:
+            - name: tmp
+              emptyDir: {}
+            - name: dshm
+              emptyDir:
+                medium: Memory
+                sizeLimit: 2Gi
+          initContainers:
+            - name: wait-for-postgres
+              image: postgres:17-alpine
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: DB_HOST
+                  value: "postgres"
+                - name: DB_PORT
+                  value: "5432"
+              command: ["sh", "-c"]
+              args:
+                - |
+                  echo "Waiting for Postgres at ${DB_HOST}:${DB_PORT} ..."
+                  until pg_isready -h "${DB_HOST}" -p "${DB_PORT}"; do
+                    sleep 3
+                  done
+                  echo "Postgres is ready."
+          containers:
+            - name: selenium
+              image: selenium/standalone-chromium:latest
+              imagePullPolicy: IfNotPresent
+              resources:
+                requests:
+                  cpu: "300m"
+                  memory: "1Gi"
+                limits:
+                  cpu: "1"
+                  memory: "2Gi"
+              readinessProbe:
+                httpGet:
+                  path: /status
+                  port: 4444
+                initialDelaySeconds: 2
+                periodSeconds: 3
+                timeoutSeconds: 2
+                failureThreshold: 20
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: false
+                runAsNonRoot: true
+                runAsUser: 1200
+              volumeMounts:
+                - name: dshm
+                  mountPath: /dev/shm
+
+            - name: etl
+              image: ghcr.io/tamhid92/epl-etl:staging
+              imagePullPolicy: IfNotPresent
+              command: ["/bin/sh","-lc"]
+              args:
+                - |
+                  echo "Waiting for Selenium at http://localhost:4444/status ..."
+                  until curl -sf http://localhost:4444/status | grep -q '"ready":true'; do
+                    sleep 2
+                  done
+                  exec python /app/data_pipeline.py update
+              env:
+                - name: DB_HOST
+                  value: "postgres"
+                - name: DB_PORT
+                  value: "5432"
+                - name: DB_NAME
+                  valueFrom:
+                    configMapKeyRef:
+                      name: db-config
+                      key: DB_NAME
+                - name: DB_USER
+                  valueFrom:
+                    configMapKeyRef:
+                      name: db-config
+                      key: DB_SUPERUSER
+                - name: DB_PASS
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-secrets
+                      key: POSTGRES_PASSWORD
+                - name: LOG_LEVEL
+                  value: "INFO"
+                - name: SQLALCHEMY_ECHO
+                  value: "false"
+                - name: SEASON_ID
+                  value: "2025/2026"
+                - name: COMP_ID
+                  value: "EPL"
+                - name: SLEEP_BETWEEN_MATCHES
+                  value: "5"
+                - name: VENUES_CSV_PATH
+                  value: "/app/venues.csv"
+                - name: SELENIUM_URL
+                  value: "http://localhost:4444"
+                - name: FBREF_WAIT_TIME
+                  value: "7"
+              resources:
+                requests:
+                  cpu: "200m"
+                  memory: "512Mi"
+                limits:
+                  cpu: "1"
+                  memory: "2Gi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10001
+              volumeMounts:
+                - name: tmp
+                  mountPath: /tmp
