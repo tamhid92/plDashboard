@@ -37,7 +37,7 @@ kind: ConfigMap
 metadata:
   name: db-config
 data:
-  DB_NAME: "epl"
+  DB_NAME: "pldashboard"
   DB_SUPERUSER: "postgres"
   postgresql.conf: |
     listen_addresses = '*'

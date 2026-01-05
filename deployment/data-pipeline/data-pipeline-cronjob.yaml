@@ -1,0 +1,88 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etl-daily
+  labels:
+    app: etl-jobs
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      ttlSecondsAfterFinished: 600
+      template:
+        metadata:
+          labels:
+            app: etl-jobs
+        spec:
+          restartPolicy: Never
+          imagePullSecrets:
+            - name: ghcr-secret
+          volumes:
+            - name: tmp
+              emptyDir: {}
+            - name: dshm
+              emptyDir:
+                medium: Memory
+                sizeLimit: 2Gi
+          initContainers:
+            - name: wait-for-postgres
+              image: postgres:17-alpine
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: DB_HOST
+                  value: "postgres"
+                - name: DB_PORT
+                  value: "5432"
+              command: ["sh", "-c"]
+              args:
+                - |
+                  echo "Waiting for Postgres at ${DB_HOST}:${DB_PORT} ..."
+                  until pg_isready -h "${DB_HOST}" -p "${DB_PORT}"; do
+                    sleep 3
+                  done
+                  echo "Postgres is ready."
+          containers:
+            - name: etl
+              image: ghcr.io/tamhid92/pldash-data:v1.0.0
+              imagePullPolicy: Always
+              command: ["/bin/sh","-lc"]
+              args:
+                - |
+                  exec python /app/dataPipeline.py --action update
+              env:
+                - name: DB_HOST
+                  value: "postgres"
+                - name: DB_PORT
+                  value: "5432"
+                - name: DB_NAME
+                  value: "pldashboard"
+                - name: DB_USER
+                  value: "postgres"
+                - name: DB_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-secrets
+                      key: POSTGRES_PASSWORD
+                - name: LOG_LEVEL
+                  value: "INFO"
+                - name: SQLALCHEMY_ECHO
+                  value: "false"
+              resources:
+                requests:
+                  cpu: "200m"
+                  memory: "512Mi"
+                limits:
+                  cpu: "1"
+                  memory: "2Gi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: false
+                runAsNonRoot: false
+                runAsUser: 0
+              volumeMounts:
+                - name: tmp
+                  mountPath: /tmp

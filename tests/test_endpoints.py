@@ -5,9 +5,18 @@ Test script for all API endpoints
 import requests
 import json
 from typing import Dict, Any
+import os
 
 # Base URL for the API
-BASE_URL = "http://localhost:3456"
+BASE_URL = "http://192.168.68.89:8000"
+
+# API Token - can be set via environment variable
+API_TOKEN = os.getenv('API_TOKEN', 'LmdbWbDuvLm0i1sWotGlnKOgrJ2Naj2AMPAwKMI62CgKtJDi7LXeSFpOcOoH4H0mX2OjyDsqq6tDebrjcVT14lKrhWFniHrD3Kyh7LMtITUgN1CU6Htm6Pa9JX5apRTG')
+
+# Headers with authentication
+HEADERS = {
+    'X-API-Token': API_TOKEN
+}
 
 def print_result(endpoint: str, response: requests.Response) -> None:
     """Pretty print the result of an API call"""
@@ -80,7 +89,7 @@ def test_endpoints():
         results["total"] += 1
         try:
             url = f"{BASE_URL}{endpoint}"
-            response = requests.get(url, timeout=5)
+            response = requests.get(url, headers=HEADERS, timeout=5)
             print_result(f"{method} {endpoint} - {description}", response)
             
             if response.status_code == 200:
@@ -99,7 +108,7 @@ def test_endpoints():
     
     try:
         # Get a sample player ID
-        response = requests.get(f"{BASE_URL}/players", timeout=5)
+        response = requests.get(f"{BASE_URL}/players", headers=HEADERS, timeout=5)
         if response.status_code == 200:
             data = response.json()
             if data and len(data) > 0:
@@ -109,7 +118,7 @@ def test_endpoints():
     
     try:
         # Get a sample team ID from teams endpoint
-        response = requests.get(f"{BASE_URL}/teams", timeout=5)
+        response = requests.get(f"{BASE_URL}/teams", headers=HEADERS, timeout=5)
         if response.status_code == 200:
             data = response.json()
             if data and len(data) > 0:
@@ -119,7 +128,7 @@ def test_endpoints():
     
     try:
         # Get a sample fixture ID (and fallback team_id if not found above)
-        response = requests.get(f"{BASE_URL}/fixtures", timeout=5)
+        response = requests.get(f"{BASE_URL}/fixtures", headers=HEADERS, timeout=5)
         if response.status_code == 200:
             data = response.json()
             if data and len(data) > 0:
@@ -132,7 +141,7 @@ def test_endpoints():
     
     try:
         # Get a sample completed game ID
-        response = requests.get(f"{BASE_URL}/completedFixtures", timeout=5)
+        response = requests.get(f"{BASE_URL}/completedFixtures", headers=HEADERS, timeout=5)
         if response.status_code == 200:
             data = response.json()
             if data and len(data) > 0:
@@ -161,7 +170,7 @@ def test_endpoints():
                 try:
                     endpoint = endpoint_template.replace("{id}", str(sample_ids[id_key]))
                     url = f"{BASE_URL}{endpoint}"
-                    response = requests.get(url, timeout=5)
+                    response = requests.get(url, headers=HEADERS, timeout=5)
                     print_result(f"GET {endpoint}", response)
                     
                     if response.status_code == 200:

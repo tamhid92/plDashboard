@@ -16,6 +16,8 @@ spec:
         app: epl-react
     spec:
       terminationGracePeriodSeconds: 15
+      imagePullSecrets:
+        - name: ghcr-secret
       securityContext:
         runAsNonRoot: true
         runAsUser: 101
@@ -47,11 +49,18 @@ spec:
 
       containers:
         - name: web
-          image: ghcr.io/tamhid92/epl-frontend-react:dev
+          image: ghcr.io/tamhid92/pldash-fe:v1.0.1
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
               name: http
+          env:
+            # Pass API token to nginx at runtime
+            - name: API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: api-auth
+                  key: API_TOKEN
           volumeMounts:
             - name: nginx-cache
               mountPath: /var/cache/nginx
@@ -59,6 +68,8 @@ spec:
               mountPath: /var/run
             - name: nginx-log
               mountPath: /var/log/nginx
+            - name: nginx-conf
+              mountPath: /etc/nginx/conf.d
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
@@ -92,6 +103,8 @@ spec:
         - name: nginx-run
           emptyDir: {}
         - name: nginx-log
+          emptyDir: {}
+        - name: nginx-conf
           emptyDir: {}
 
 ---

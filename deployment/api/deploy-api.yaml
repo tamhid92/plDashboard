@@ -27,6 +27,8 @@ metadata:
     app: epl-api
 spec:
   replicas: 2
+  imagePullSecrets:
+    - name: ghcr-secret
   selector:
     matchLabels:
       app: epl-api
@@ -59,8 +61,7 @@ spec:
               valueFrom:
                 configMapKeyRef: { name: epl-api-config, key: DB_PORT }
             - name: DB_NAME
-              valueFrom:
-                configMapKeyRef: { name: db-config, key: DB_NAME }
+              value: "pldashboard"
             - name: DB_USER
               valueFrom:
                 configMapKeyRef: { name: db-config, key: DB_SUPERUSER }
@@ -82,7 +83,7 @@ spec:
 
       containers:
         - name: api
-          image: ghcr.io/tamhid92/epl-api:dev
+          image: ghcr.io/tamhid92/pldash-api:v1.0.0
           imagePullPolicy: Always
           ports:
             - { containerPort: 8000, name: http }

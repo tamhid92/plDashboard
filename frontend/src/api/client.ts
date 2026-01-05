@@ -1,19 +1,17 @@
 import axios from 'axios';
 
-// Use environment variable for Base URL, or empty string (relative) as fallback
-// In production (nginx), this should likely be /api if using the nginx proxy
+// Base URL set at build time to /api (proxied by nginx)
 export const BASE_URL = import.meta.env.VITE_BASE_URL || '';
-export const API_TOKEN = import.meta.env.VITE_API_TOKEN || '';
 
 export const api = axios.create({
     baseURL: BASE_URL,
     headers: {
         'Content-Type': 'application/json',
-        'X-API-TOKEN': API_TOKEN,
+        // No X-API-TOKEN here - nginx adds it server-side
     },
 });
 
-// Response interceptor for error handling if needed
+// Response interceptor for error handling
 api.interceptors.response.use(
     (response) => response,
     (error) => {
