@@ -1,0 +1,49 @@
+
+> frontend@0.0.0 lint
+> eslint .
+
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/api/queries.ts
+  116:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  139:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  176:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/api/types.ts
+  59:13  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/components/common/MatchListModal.tsx
+  51:8  warning  React Hook React.useEffect has a missing dependency: 'onClose'. Either include it or remove the dependency array. If 'onClose' changes too often, find the parent component that defines it and wrap that definition in useCallback  react-hooks/exhaustive-deps
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/components/fpl/FPLPlayerTable.tsx
+  49:38  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  50:38  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/components/overview/SeasonBumpyChart.tsx
+   38:4   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   97:40  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  172:43  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  197:78  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/hooks/usePlayerContext.ts
+  46:64  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/FPLPage.tsx
+  27:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/FPLPage.tsx:27:13
+  25 |     useEffect(() => {
+  26 |         if (stats.top_scorer && !selectedPlayer && !hasAutoSelected.current) {
+> 27 |             setSelectedPlayer(stats.top_scorer);
+     |             ^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  28 |             hasAutoSelected.current = true;
+  29 |         }
+  30 |     }, [stats.top_scorer, selectedPlayer]);  react-hooks/set-state-in-effect
+
+✖ 13 problems (12 errors, 1 warning)
+

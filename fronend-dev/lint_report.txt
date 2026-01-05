@@ -1,0 +1,445 @@
+
+> frontend@0.0.0 lint
+> eslint .
+
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/api/queries.ts
+  116:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  139:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  176:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/api/types.ts
+  59:13  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/components/common/MatchListModal.tsx
+  51:8  warning  React Hook React.useEffect has a missing dependency: 'onClose'. Either include it or remove the dependency array. If 'onClose' changes too often, find the parent component that defines it and wrap that definition in useCallback  react-hooks/exhaustive-deps
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/components/fpl/FPLDataViz.tsx
+   3:92   error  'RadarChart' is defined but never used       @typescript-eslint/no-unused-vars
+   3:104  error  'PolarGrid' is defined but never used        @typescript-eslint/no-unused-vars
+   3:115  error  'PolarAngleAxis' is defined but never used   @typescript-eslint/no-unused-vars
+   3:131  error  'PolarRadiusAxis' is defined but never used  @typescript-eslint/no-unused-vars
+   3:148  error  'Radar' is defined but never used            @typescript-eslint/no-unused-vars
+  11:61   error  'selectedPlayer' is defined but never used   @typescript-eslint/no-unused-vars
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/components/fpl/FPLPlayerTable.tsx
+  49:38  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  50:38  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/components/layout/AppLayout.tsx
+  2:10  error  'LayoutDashboard' is defined but never used  @typescript-eslint/no-unused-vars
+  2:27  error  'Users' is defined but never used            @typescript-eslint/no-unused-vars
+  2:34  error  'Shield' is defined but never used           @typescript-eslint/no-unused-vars
+  2:42  error  'Calendar' is defined but never used         @typescript-eslint/no-unused-vars
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/components/overview/SeasonBumpyChart.tsx
+   24:40  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-explicit-any
+   85:42  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-explicit-any
+  166:36  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/components/overview/SeasonBumpyChart.tsx:166:36
+  164 |                             tickCount={20}
+  165 |                             interval={0}
+> 166 |                             tick={<LogoTick />}
+      |                                    ^^^^^^^^ This component is created during render
+  167 |                             width={60}
+  168 |                             axisLine={false}
+  169 |                             tickLine={false}
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/components/overview/SeasonBumpyChart.tsx:85:22
+   83 |     };
+   84 |
+>  85 |     const LogoTick = ({ x, y, payload }: any) => {
+      |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  86 |         const lastGwData = chartData[chartData.length - 1];
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  87 |         if (!lastGwData) return null;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 124 |         );
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 125 |     };
+      | ^^^^^^ The component is created during render here
+  126 |
+  127 |     return (
+  128 |         <div className="glass-card rounded-2xl border border-gray-100 overflow-hidden flex flex-col relative group">  react-hooks/static-components
+  181:78  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-explicit-any
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/components/player/PlayerHeader.tsx
+  5:10  error  'Shield' is defined but never used       @typescript-eslint/no-unused-vars
+  5:24  error  'CheckCircle' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/components/player/modules/PeerContextModule.tsx
+  74:54  error  'rankLabel' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/components/player/modules/RiskProfile.tsx
+  17:11  error  'errorPropensity' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/hooks/useFPLData.ts
+  4:29  error  'Fixture' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/hooks/usePlayerContext.ts
+  41:51  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  42:79  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  43:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/FPLPage.tsx
+  26:13  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/FPLPage.tsx:26:13
+  24 |     useEffect(() => {
+  25 |         if (stats.top_scorer && !selectedPlayer) {
+> 26 |             setSelectedPlayer(stats.top_scorer);
+     |             ^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  27 |         }
+  28 |     }, [stats.top_scorer]);
+  29 |  react-hooks/set-state-in-effect
+  28:8   warning  React Hook useEffect has a missing dependency: 'selectedPlayer'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             react-hooks/exhaustive-deps
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx
+  109:20  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-explicit-any
+  374:92  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-explicit-any
+  398:92  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-explicit-any
+  428:92  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-explicit-any
+  452:92  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-explicit-any
+  469:46  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:469:46
+  467 |                                         </div>
+  468 |                                         <div className="space-y-2">
+> 469 |                                             <StatRow label="Possession" isPercentage homeValue={match.home_stats.possessionPercentage} awayValue={match.away_stats.possessionPercentage} />
+      |                                              ^^^^^^^ This component is created during render
+  470 |                                             <StatRow label="Exp. Goals (xG)" homeValue={match.home_stats.expectedGoals} awayValue={match.away_stats.expectedGoals} />
+  471 |                                             <StatRow label="Total Shots" homeValue={match.home_stats.totalScoringAtt} awayValue={match.away_stats.totalScoringAtt} />
+  472 |                                             <StatRow label="Shots on Target" homeValue={match.home_stats.ontargetScoringAtt} awayValue={match.away_stats.ontargetScoringAtt} />
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:87:21
+   85 |
+   86 |     // --- Helpers for Completed Matches ---
+>  87 |     const StatRow = ({ label, homeValue, awayValue, total, isPercentage = false }: { label: string, homeValue: number, awayValue: number, total?: number, isPercentage?: boolean }) => {
+      |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  88 |         const t = total || (homeValue + awayValue) || 1;
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  89 |         const homePct = isPercentage ? homeValue : (homeValue / t) * 100;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 105 |         );
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 106 |     };
+      | ^^^^^^ The component is created during render here
+  107 |
+  108 |     const events: { time: number, timeStr: string, type: 'goal' | 'card' | 'sub', player: string, playerId: string | number, team: 'home' | 'away', detail?: string }[] = [];
+  109 |     let radarData: any[] = [];                                                                                                                                                                                            react-hooks/static-components
+  470:46  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:470:46
+  468 |                                         <div className="space-y-2">
+  469 |                                             <StatRow label="Possession" isPercentage homeValue={match.home_stats.possessionPercentage} awayValue={match.away_stats.possessionPercentage} />
+> 470 |                                             <StatRow label="Exp. Goals (xG)" homeValue={match.home_stats.expectedGoals} awayValue={match.away_stats.expectedGoals} />
+      |                                              ^^^^^^^ This component is created during render
+  471 |                                             <StatRow label="Total Shots" homeValue={match.home_stats.totalScoringAtt} awayValue={match.away_stats.totalScoringAtt} />
+  472 |                                             <StatRow label="Shots on Target" homeValue={match.home_stats.ontargetScoringAtt} awayValue={match.away_stats.ontargetScoringAtt} />
+  473 |                                             <StatRow label="Passes" homeValue={match.home_stats.totalPass} awayValue={match.away_stats.totalPass} />
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:87:21
+   85 |
+   86 |     // --- Helpers for Completed Matches ---
+>  87 |     const StatRow = ({ label, homeValue, awayValue, total, isPercentage = false }: { label: string, homeValue: number, awayValue: number, total?: number, isPercentage?: boolean }) => {
+      |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  88 |         const t = total || (homeValue + awayValue) || 1;
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  89 |         const homePct = isPercentage ? homeValue : (homeValue / t) * 100;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 105 |         );
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 106 |     };
+      | ^^^^^^ The component is created during render here
+  107 |
+  108 |     const events: { time: number, timeStr: string, type: 'goal' | 'card' | 'sub', player: string, playerId: string | number, team: 'home' | 'away', detail?: string }[] = [];
+  109 |     let radarData: any[] = [];                                                                                      react-hooks/static-components
+  471:46  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:471:46
+  469 |                                             <StatRow label="Possession" isPercentage homeValue={match.home_stats.possessionPercentage} awayValue={match.away_stats.possessionPercentage} />
+  470 |                                             <StatRow label="Exp. Goals (xG)" homeValue={match.home_stats.expectedGoals} awayValue={match.away_stats.expectedGoals} />
+> 471 |                                             <StatRow label="Total Shots" homeValue={match.home_stats.totalScoringAtt} awayValue={match.away_stats.totalScoringAtt} />
+      |                                              ^^^^^^^ This component is created during render
+  472 |                                             <StatRow label="Shots on Target" homeValue={match.home_stats.ontargetScoringAtt} awayValue={match.away_stats.ontargetScoringAtt} />
+  473 |                                             <StatRow label="Passes" homeValue={match.home_stats.totalPass} awayValue={match.away_stats.totalPass} />
+  474 |                                             <StatRow label="Corners" homeValue={match.home_stats.wonCorners} awayValue={match.away_stats.wonCorners} />
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:87:21
+   85 |
+   86 |     // --- Helpers for Completed Matches ---
+>  87 |     const StatRow = ({ label, homeValue, awayValue, total, isPercentage = false }: { label: string, homeValue: number, awayValue: number, total?: number, isPercentage?: boolean }) => {
+      |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  88 |         const t = total || (homeValue + awayValue) || 1;
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  89 |         const homePct = isPercentage ? homeValue : (homeValue / t) * 100;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 105 |         );
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 106 |     };
+      | ^^^^^^ The component is created during render here
+  107 |
+  108 |     const events: { time: number, timeStr: string, type: 'goal' | 'card' | 'sub', player: string, playerId: string | number, team: 'home' | 'away', detail?: string }[] = [];
+  109 |     let radarData: any[] = [];  react-hooks/static-components
+  472:46  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:472:46
+  470 |                                             <StatRow label="Exp. Goals (xG)" homeValue={match.home_stats.expectedGoals} awayValue={match.away_stats.expectedGoals} />
+  471 |                                             <StatRow label="Total Shots" homeValue={match.home_stats.totalScoringAtt} awayValue={match.away_stats.totalScoringAtt} />
+> 472 |                                             <StatRow label="Shots on Target" homeValue={match.home_stats.ontargetScoringAtt} awayValue={match.away_stats.ontargetScoringAtt} />
+      |                                              ^^^^^^^ This component is created during render
+  473 |                                             <StatRow label="Passes" homeValue={match.home_stats.totalPass} awayValue={match.away_stats.totalPass} />
+  474 |                                             <StatRow label="Corners" homeValue={match.home_stats.wonCorners} awayValue={match.away_stats.wonCorners} />
+  475 |                                             <StatRow label="Fouls" homeValue={match.home_stats.fkFoulLost} awayValue={match.away_stats.fkFoulLost} />
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:87:21
+   85 |
+   86 |     // --- Helpers for Completed Matches ---
+>  87 |     const StatRow = ({ label, homeValue, awayValue, total, isPercentage = false }: { label: string, homeValue: number, awayValue: number, total?: number, isPercentage?: boolean }) => {
+      |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  88 |         const t = total || (homeValue + awayValue) || 1;
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  89 |         const homePct = isPercentage ? homeValue : (homeValue / t) * 100;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 105 |         );
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 106 |     };
+      | ^^^^^^ The component is created during render here
+  107 |
+  108 |     const events: { time: number, timeStr: string, type: 'goal' | 'card' | 'sub', player: string, playerId: string | number, team: 'home' | 'away', detail?: string }[] = [];
+  109 |     let radarData: any[] = [];                                        react-hooks/static-components
+  473:46  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:473:46
+  471 |                                             <StatRow label="Total Shots" homeValue={match.home_stats.totalScoringAtt} awayValue={match.away_stats.totalScoringAtt} />
+  472 |                                             <StatRow label="Shots on Target" homeValue={match.home_stats.ontargetScoringAtt} awayValue={match.away_stats.ontargetScoringAtt} />
+> 473 |                                             <StatRow label="Passes" homeValue={match.home_stats.totalPass} awayValue={match.away_stats.totalPass} />
+      |                                              ^^^^^^^ This component is created during render
+  474 |                                             <StatRow label="Corners" homeValue={match.home_stats.wonCorners} awayValue={match.away_stats.wonCorners} />
+  475 |                                             <StatRow label="Fouls" homeValue={match.home_stats.fkFoulLost} awayValue={match.away_stats.fkFoulLost} />
+  476 |                                             <StatRow label="Duels Won" homeValue={match.home_stats.duelWon} awayValue={match.away_stats.duelWon} />
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:87:21
+   85 |
+   86 |     // --- Helpers for Completed Matches ---
+>  87 |     const StatRow = ({ label, homeValue, awayValue, total, isPercentage = false }: { label: string, homeValue: number, awayValue: number, total?: number, isPercentage?: boolean }) => {
+      |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  88 |         const t = total || (homeValue + awayValue) || 1;
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  89 |         const homePct = isPercentage ? homeValue : (homeValue / t) * 100;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 105 |         );
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 106 |     };
+      | ^^^^^^ The component is created during render here
+  107 |
+  108 |     const events: { time: number, timeStr: string, type: 'goal' | 'card' | 'sub', player: string, playerId: string | number, team: 'home' | 'away', detail?: string }[] = [];
+  109 |     let radarData: any[] = [];                                                          react-hooks/static-components
+  474:46  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:474:46
+  472 |                                             <StatRow label="Shots on Target" homeValue={match.home_stats.ontargetScoringAtt} awayValue={match.away_stats.ontargetScoringAtt} />
+  473 |                                             <StatRow label="Passes" homeValue={match.home_stats.totalPass} awayValue={match.away_stats.totalPass} />
+> 474 |                                             <StatRow label="Corners" homeValue={match.home_stats.wonCorners} awayValue={match.away_stats.wonCorners} />
+      |                                              ^^^^^^^ This component is created during render
+  475 |                                             <StatRow label="Fouls" homeValue={match.home_stats.fkFoulLost} awayValue={match.away_stats.fkFoulLost} />
+  476 |                                             <StatRow label="Duels Won" homeValue={match.home_stats.duelWon} awayValue={match.away_stats.duelWon} />
+  477 |                                             <StatRow label="Aerials Won" homeValue={match.home_stats.aerialWon} awayValue={match.away_stats.aerialWon} />
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:87:21
+   85 |
+   86 |     // --- Helpers for Completed Matches ---
+>  87 |     const StatRow = ({ label, homeValue, awayValue, total, isPercentage = false }: { label: string, homeValue: number, awayValue: number, total?: number, isPercentage?: boolean }) => {
+      |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  88 |         const t = total || (homeValue + awayValue) || 1;
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  89 |         const homePct = isPercentage ? homeValue : (homeValue / t) * 100;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 105 |         );
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 106 |     };
+      | ^^^^^^ The component is created during render here
+  107 |
+  108 |     const events: { time: number, timeStr: string, type: 'goal' | 'card' | 'sub', player: string, playerId: string | number, team: 'home' | 'away', detail?: string }[] = [];
+  109 |     let radarData: any[] = [];                                                                      react-hooks/static-components
+  475:46  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:475:46
+  473 |                                             <StatRow label="Passes" homeValue={match.home_stats.totalPass} awayValue={match.away_stats.totalPass} />
+  474 |                                             <StatRow label="Corners" homeValue={match.home_stats.wonCorners} awayValue={match.away_stats.wonCorners} />
+> 475 |                                             <StatRow label="Fouls" homeValue={match.home_stats.fkFoulLost} awayValue={match.away_stats.fkFoulLost} />
+      |                                              ^^^^^^^ This component is created during render
+  476 |                                             <StatRow label="Duels Won" homeValue={match.home_stats.duelWon} awayValue={match.away_stats.duelWon} />
+  477 |                                             <StatRow label="Aerials Won" homeValue={match.home_stats.aerialWon} awayValue={match.away_stats.aerialWon} />
+  478 |                                         </div>
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:87:21
+   85 |
+   86 |     // --- Helpers for Completed Matches ---
+>  87 |     const StatRow = ({ label, homeValue, awayValue, total, isPercentage = false }: { label: string, homeValue: number, awayValue: number, total?: number, isPercentage?: boolean }) => {
+      |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  88 |         const t = total || (homeValue + awayValue) || 1;
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  89 |         const homePct = isPercentage ? homeValue : (homeValue / t) * 100;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 105 |         );
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 106 |     };
+      | ^^^^^^ The component is created during render here
+  107 |
+  108 |     const events: { time: number, timeStr: string, type: 'goal' | 'card' | 'sub', player: string, playerId: string | number, team: 'home' | 'away', detail?: string }[] = [];
+  109 |     let radarData: any[] = [];                                                                                                                                                                                                       react-hooks/static-components
+  476:46  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:476:46
+  474 |                                             <StatRow label="Corners" homeValue={match.home_stats.wonCorners} awayValue={match.away_stats.wonCorners} />
+  475 |                                             <StatRow label="Fouls" homeValue={match.home_stats.fkFoulLost} awayValue={match.away_stats.fkFoulLost} />
+> 476 |                                             <StatRow label="Duels Won" homeValue={match.home_stats.duelWon} awayValue={match.away_stats.duelWon} />
+      |                                              ^^^^^^^ This component is created during render
+  477 |                                             <StatRow label="Aerials Won" homeValue={match.home_stats.aerialWon} awayValue={match.away_stats.aerialWon} />
+  478 |                                         </div>
+  479 |                                     </div>
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:87:21
+   85 |
+   86 |     // --- Helpers for Completed Matches ---
+>  87 |     const StatRow = ({ label, homeValue, awayValue, total, isPercentage = false }: { label: string, homeValue: number, awayValue: number, total?: number, isPercentage?: boolean }) => {
+      |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  88 |         const t = total || (homeValue + awayValue) || 1;
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  89 |         const homePct = isPercentage ? homeValue : (homeValue / t) * 100;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 105 |         );
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 106 |     };
+      | ^^^^^^ The component is created during render here
+  107 |
+  108 |     const events: { time: number, timeStr: string, type: 'goal' | 'card' | 'sub', player: string, playerId: string | number, team: 'home' | 'away', detail?: string }[] = [];
+  109 |     let radarData: any[] = [];                                                                                                                                                                                                                                                                                                                 react-hooks/static-components
+  477:46  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:477:46
+  475 |                                             <StatRow label="Fouls" homeValue={match.home_stats.fkFoulLost} awayValue={match.away_stats.fkFoulLost} />
+  476 |                                             <StatRow label="Duels Won" homeValue={match.home_stats.duelWon} awayValue={match.away_stats.duelWon} />
+> 477 |                                             <StatRow label="Aerials Won" homeValue={match.home_stats.aerialWon} awayValue={match.away_stats.aerialWon} />
+      |                                              ^^^^^^^ This component is created during render
+  478 |                                         </div>
+  479 |                                     </div>
+  480 |
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:87:21
+   85 |
+   86 |     // --- Helpers for Completed Matches ---
+>  87 |     const StatRow = ({ label, homeValue, awayValue, total, isPercentage = false }: { label: string, homeValue: number, awayValue: number, total?: number, isPercentage?: boolean }) => {
+      |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  88 |         const t = total || (homeValue + awayValue) || 1;
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  89 |         const homePct = isPercentage ? homeValue : (homeValue / t) * 100;
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 105 |         );
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 106 |     };
+      | ^^^^^^ The component is created during render here
+  107 |
+  108 |     const events: { time: number, timeStr: string, type: 'goal' | 'card' | 'sub', player: string, playerId: string | number, team: 'home' | 'away', detail?: string }[] = [];
+  109 |     let radarData: any[] = [];                                                                                                                                                                                                                                                                                                                                                                                                                                                                         react-hooks/static-components
+  520:38  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:520:38
+  518 |                                 {/* Squad Lists */}
+  519 |                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+> 520 |                                     <SquadList players={homeSquad} teamName={match.home_team_name} />
+      |                                      ^^^^^^^^^ This component is created during render
+  521 |                                     <SquadList players={awaySquad} teamName={match.away_team_name} />
+  522 |                                 </div>
+  523 |
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:142:23
+  140 |
+  141 |     // --- Helper for Squad LIst ---
+> 142 |     const SquadList = ({ players, teamName }: { players: Player[], teamName: string }) => {
+      |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 143 |         const grouped = {
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 144 |             'Goalkeepers': players.filter(p => p.position === 'Goalkeeper'),
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 185 |         );
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 186 |     };
+      | ^^^^^^ The component is created during render here
+  187 |
+  188 |     return (
+  189 |         <div className="min-h-screen pb-20 overflow-x-hidden">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         react-hooks/static-components
+  521:38  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:521:38
+  519 |                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+  520 |                                     <SquadList players={homeSquad} teamName={match.home_team_name} />
+> 521 |                                     <SquadList players={awaySquad} teamName={match.away_team_name} />
+      |                                      ^^^^^^^^^ This component is created during render
+  522 |                                 </div>
+  523 |
+  524 |                                 <div className="flex justify-center py-12">
+
+/home/ubuntu/GIT_REPOS/plDashboard/frontend/src/pages/MatchDetailsPage.tsx:142:23
+  140 |
+  141 |     // --- Helper for Squad LIst ---
+> 142 |     const SquadList = ({ players, teamName }: { players: Player[], teamName: string }) => {
+      |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 143 |         const grouped = {
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 144 |             'Goalkeepers': players.filter(p => p.position === 'Goalkeeper'),
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 185 |         );
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 186 |     };
+      | ^^^^^^ The component is created during render here
+  187 |
+  188 |     return (
+  189 |         <div className="min-h-screen pb-20 overflow-x-hidden">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 react-hooks/static-components
+
+✖ 47 problems (45 errors, 2 warnings)
+
