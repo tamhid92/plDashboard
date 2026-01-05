@@ -10,27 +10,27 @@ def initialize_database():
     This function can be called from other Python scripts.
     """
     # Step 1: Connect to default postgres database
-    logger.info("Step 1: Connecting to default postgres database...")
-    default_db = dbConnections(db_name='postgres')
-    conn = default_db.connect_db()
+    # logger.info("Step 1: Connecting to default postgres database...")
+    # default_db = dbConnections(db_name='postgres')
+    # conn = default_db.connect_db()
     
-    if not conn:
-        logger.error("Failed to connect to default postgres database.")
-        return False
+    # if not conn:
+    #     logger.error("Failed to connect to default postgres database.")
+    #     return False
     
-    # Check if plDashboard database already exists
-    if default_db.database_exists('pldashboard'):
-        logger.info("Database 'pldashboard' already exists. Skipping database creation.")
-    else:
-        # Step 2: Create plDashboard database
-        logger.info("Step 2: Creating plDashboard database...")
-        success = default_db.create_database('pldashboard')
-        if not success:
-            default_db.close_db_connection()
-            logger.error("Failed to create plDashboard database.")
-            return False
+    # # Check if plDashboard database already exists
+    # if default_db.database_exists('pldashboard'):
+    #     logger.info("Database 'pldashboard' already exists. Skipping database creation.")
+    # else:
+    #     # Step 2: Create plDashboard database
+    #     logger.info("Step 2: Creating plDashboard database...")
+    #     success = default_db.create_database('pldashboard')
+    #     if not success:
+    #         default_db.close_db_connection()
+    #         logger.error("Failed to create plDashboard database.")
+    #         return False
     
-    default_db.close_db_connection()
+    # default_db.close_db_connection()
     
     # Step 3: Connect to plDashboard database
     logger.info("Step 3: Connecting to plDashboard database...")

@@ -1,15 +1,16 @@
 import psycopg2
+import os
 from utils.logger import Logger
 
 logger = Logger(__name__).get()
 
 class dbConnections():
     def __init__(self, db_host='localhost', db_name='pldashboard', db_user='postgres', db_password='postgres', db_port='5432'):
-        self.DB_HOST = db_host
-        self.DB_NAME = db_name
-        self.DB_USER = db_user
-        self.DB_PASSWORD = db_password
-        self.DB_PORT = db_port
+        self.DB_HOST = os.getenv('DB_HOST', db_host)
+        self.DB_NAME = os.getenv('DB_NAME', db_name)
+        self.DB_USER = os.getenv('DB_USER', db_user)
+        self.DB_PASSWORD = os.getenv('DB_PASSWORD', db_password)
+        self.DB_PORT = os.getenv('DB_PORT', db_port)
         self.conn = None
 
     def connect_db(self):
